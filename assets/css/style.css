@@ -1,3 +1,26 @@
 * {
     box-sizing: border-box;
   }
+
+  .hero {
+    background-image: linear-gradient(45deg, #463cdb 0%, #0e0653 100%);
+    color: #ffffff
+  }
+
+  .hero h1 {
+      padding-top: 20px;
+      text-align: center;
+  }
+
+  .btn {
+    outline: none;
+    border: none;
+    display: inline-block;
+    font-size: 1.0rem;
+    padding: 5px 20px 5px;
+    margin: 10px;
+    border-radius: 10px;
+    background-color: rgb(74, 122, 194);
+    color: white;
+    box-shadow: 0 3px;
+}

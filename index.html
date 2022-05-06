@@ -8,11 +8,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css"
     />
-    <link
-      href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,400i,700&display=swap"
-      rel="stylesheet"
-    />
-    <link
+    <link href="https://fonts.googleapis.com/css2?family=Francois+One&family=Open+Sans&display=swap" rel="stylesheet">
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"
     />
@@ -28,9 +24,36 @@
   </head>
 
   <body class="flex-column min-100-vh">
-    <header>Weather Dashboard</header>
+    <header class="hero">
+        <h1 class="app-title">Weather Dashboard<h1>
+        </header>
 
-    <main class="flex-row justify-space-between"></main>
+    <main class="flex-row justify-space-between">
+        <div class="col-12 col-md-4">
+            <div class="card">
+                <h3 class="card-header">Search for a City</h3>
+                    <form id="user-form" class="card-body">
+                        <label class="form-label" for="username"></label>
+                        <input
+                        name="username"
+                        id="username"
+                        type="text"
+                        autofocus="true"
+                        class="form-input"
+                        />
+                        <button type="submit" class="btn">Search</button>
+                </form>
+                <!-- display city/date/temp, etc here -->
+                <div class="col-12 col-md-8">
+                </div>
+                <!-- 5-Day Forecast Cards -->
+                <div class="card">
+                    <h2>5-Day Forecast:</h2>
+                </div>
+            </div>
+        </div>
+
+    </main>
 
     <!-- add script at the bottom of the body -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
