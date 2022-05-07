@@ -1,79 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css"
-    />
-    <link href="https://fonts.googleapis.com/css2?family=Francois+One&family=Open+Sans&display=swap" rel="stylesheet">
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css"
-      integrity="sha512-UyNhw5RNpQaCai2EdC+Js0QL4RlVmiq41DkmCJsRV3ZxipG2L0HhTqIf/H9Hp8ez2EnFlkBnjRGJU2stW3Lj+w=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <link rel="stylesheet" href="./assets/css/style.css" />
-    <title>Weather Dashboard</title>
-  </head>
 
-  <body class="flex-column min-100-vh">
-    <header class="hero">
-        <h1 class="app-title"><strong>Weather Dashboard</strong><h1>
-        </header>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,400i,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+  <link rel="stylesheet" href="./assets/css/style.css" />
+  <title>Git it Done</title>
+</head>
 
-        <!-- City Search -->
-    <main class="container">
-        <div class="row">
-            <div class="col-3">
-                <h3 class="card-header"><strong>Search for a City:</strong></h3>
-                    <form id="user-form" class="card-body">
-                        <label class="form-label" for="username"></label>
-                        <input
-                        name="username"
-                        id="username"
-                        type="text"
-                        autofocus="true"
-                        class="form-input"
-                        />
-                        <button type="submit" class="btn">Search</button>
-                    </form>
-            </div>
+<body class="flex-column min-100-vh">
+  <header class="hero">
+    <h1 class="app-title">Weather Dashboard</h1>
+  </header>
+
+
+  <main class="flex-row justify-space-between">
+    <div class="col-12 col-md-4">
+      <div class="card">
+        <h3 class="card-header text-uppercase">Search For a City</h3>
+        <form id="user-form" class="card-body">
+          <label class="form-label" for="username"></label>
+          <input name="username" id="username" type="text" autofocus="true" class="form-input" placeholder="Enter City" />
+          <button type="submit" class="btn">Search</button>
+        </form>
+      </div>
+
+      <div class="card">
+        <div id="language-buttons" class="card-body">
+          <button data-language="javascript" class="btn">Pittsburgh</button>
+          <button data-language="html" class="btn">Los Angeles</button>
+          <button data-language="css" class="btn">Chicago</button>
         </div>
+      </div>
+    </div>
 
-        <!-- City display-->
-        <div class="col-sm-6 display">
-            <div class="card">
-            
-            </div>
-        </div>
+    <div class="col-12 col-md-8">
+      <h2 class="subtitle">Showing Repositories for: <span id="repo-search-term"></span></h2>
+      <div id="repos-container" class="list-group">
 
-        <!-- 5-Day Forecast Cards -->
-        <div class="class="d-flex>
-                <h2 class="subtitle">
-                    5 Day Forecast: <span id="city-search-term"></span>
-                </h2>
-                <!-- daily weather -->
-            <div class="col-12 d-flex">
+      </div>
+    </div>
+  </main>
 
-            </div>
+  <script src="./assets/js/homepage.js"></script>
+</body>
 
-        </div>
-    </main>
-
-    <!-- add script at the bottom of the body -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery-ui-touch-punch@0.2.3/jquery.ui.touch-punch.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/umd/popper.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <script src="./assets/js/homepage.js"></script>
-  </body>
 </html>
