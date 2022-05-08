@@ -60,6 +60,43 @@ var getWeather = function (cityLat, cityLon) {
   });
 };
 
+var displayCity = function (data) {
+  console.log(data);
+
+  var currentWeather = {
+    main: data.main,
+    wind: data.wind,
+    clouds: data.clouds,
+    coord: data.coord,
+    description: data.weather[0].icon
+  };
+  console.log(currentWeather);
+  weatherData.textContent = data.weather[0].main;
+
+  for (var i = 0; i < data.length; i++) {
+    // create a space for each city
+    var cityEl = document.createElement("div");
+    weatherData.classList =
+      "list-item flex-row justify-space-between align-center";
+
+    // create a h2 element to hold city name
+    var titleEl = document.createElement("ul");
+    titleEl.classList = "list-item flex-row justify-space-between align-center";
+
+    // append to container
+    weatherData.appendChild(titleEl);
+
+    // create a h2 element
+    var statusEl = document.createElement("ul");
+    statusEl.classList = "flex-row align-center";
+
+    // append to container
+    cityEl.appendChild(statusEl);
+
+    // append container to the dom
+    weatherData.appendChild(cityEl);
+  }
+
 // function setLocalStorage(city) {
 //   if (recentSearches.indexOf(city) === -1) {
 //     recentSearches.push(city);
@@ -73,7 +110,7 @@ var getFeaturedcitys = function (language) {
   var apiUrl =
     "https://api.openweathermap.org/data/2.5/weather?q=" +
     city +
-    "&units=imperial&appid= + apiKey";
+    "&units=imperial&appid=" + apiKey;
 
   // make a get request to url
   fetch(apiUrl).then(function (response) {
@@ -88,45 +125,6 @@ var getFeaturedcitys = function (language) {
   });
 };
 
-var displayCity = function (data) {
-  console.log(data);
-
-  var currentWeather = {
-    main: data.main,
-    // wind: data.wind,
-    // clouds: data.clouds,
-    // coord: data.coord,
-    // description: data.weather[0].description,
-  };
-  console.log(currentWeather);
-  weatherData.textContent = data.weather[0].main;
-
-  for (var i = 0; i < data.length; i++) {
-    // create a space for each city
-    var cityEl = document.createElement("div");
-    weatherData.classList =
-      "list-item flex-row justify-space-between align-center";
-
-    // append to container
-    weatherData.appendChild(titleEl);
-
-    // create a h2 element to hold city name
-    var titleEl = document.createElement("ul");
-    titleEl.classList = "list-item flex-row justify-space-between align-center";
-
-    // // append to container
-    // weatherData.appendChild(titleEl);
-
-    // create a h2 element
-    var statusEl = document.createElement("ul");
-    statusEl.classList = "flex-row align-center";
-
-    // append to container
-    cityEl.appendChild(statusEl);
-
-    // append container to the dom
-    weatherData.appendChild(cityEl);
-  }
 };
 
 // add event listeners to form and button container
