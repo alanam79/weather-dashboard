@@ -2,11 +2,14 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link href="https://fonts.googleapis.com/css2?family=Francois+One&family=Open+Sans&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <link href="https://fonts.googleapis.com/css2?family=Francois+One&family=Open+Sans&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" />
   <link rel="stylesheet" href="./assets/css/style.css" />
   <title>Git it Done</title>
 </head>
@@ -15,7 +18,6 @@
   <header class="hero">
     <h1 class="app-title">Weather Dashboard</h1>
   </header>
-
 
   <main class="flex-row justify-space-between">
     <div class="col-12 col-md-4">
@@ -28,31 +30,55 @@
         </form>
       </div>
 
-      <div class="card">
+      <div class="card d-flex">
         <div id="language-buttons" class="card-body">
           <h2 class="card-header">Search History</h2>
-          <button class="btn btn-primary mb-3" type="button" id="clearHistory">Clear</button>
+          <button class="btn btn-primary mb-3" type="button" id="clearHistory">
+            Clear
+          </button>
           <form id="recent"></form>
-          <button data-language="javascript" class="btn">Pittsburgh</button>
-          <button data-language="html" class="btn">Los Angeles</button>
-          <button data-language="css" class="btn">Chicago</button>
+          <button data-language="javascript" class="btn"></button>
+          <button data-language="html" class="btn"></button>
+          <button data-language="css" class="btn"></button>
         </div>
       </div>
     </div>
 
-    <div class="col-12 col-md-8">
-      <h2 class="subtitle">Showing Weather for: <span id="repo-search-term"></span></h2>
+    <div class="m-6 justify-space-between card col-6 col-md-8">
+      <h2 class="subtitle">
+        City Name (date): <span id="repo-search-term"></span>
+      </h2>
       <div id="repos-container" class="list-group"></div>
+      <div id="city-weather" class="list-group"></div>
     </div>
 
-    <div class="d-flex five-day-forecast">
-      <h3 class="fiveDayHeader"></h3>
-      <br />
+    
+    <div class="col-sm-9 display">
+      <!-- JUMBO city, date, temp, humidity, wind speed, uvi -->
+      <div class="current-weather hide card">
+        <h2 class="city-date-icon"></h2>
+        <p class="temp"></p>
+        <p class="humidity"></p>
+        <p class="wind"></p>
+        <p class="uvi">
+          UV Index:
+          <!-- i inline block -->
+          <i class="uviValue"></i>
+        </p>
+      </div>
+
+      <!-- 5 day forecast -->
+      <!-- <h4>5-Day Forecast</h4> -->
+      <!-- display flex -->
+      <div class="d-flex five-day-forecast">
+        <h3 class="fiveDayHeader"></h3>
+        <br />
         <!-- cards with JS -->
-    <div id="cards" class="col-12 d-flex"></div>
+        <div id="cards" class="col-12 d-flex"></div>
+      </div>
     </div>
-
-    </div>
+  </div>
+</main>
   </main>
 
   <script src="./assets/js/homepage.js"></script>
