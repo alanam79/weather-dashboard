@@ -9,10 +9,10 @@ var formSubmitHandler = function(event) {
   event.preventDefault();
 
   // get value from input element
-  var username = nameInputEl.value.trim();
+  var city = nameInputEl.value.trim();
 
-  if (username) {
-    getUserRepos(username);
+  if (city) {
+    getWeather(city);
 
     // clear old content
     repoContainerEl.textContent = "";
@@ -34,9 +34,9 @@ var buttonClickHandler = function(event) {
   }
 };
 
-var getUserRepos = function(user) {
+var getWeather = function(city) {
   // format the github api url
-  var apiUrl = "https://api.github.com/users/" + user + "/repos";
+  var apiUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&units=imperial&appid=dbbe680cb39d3e2a4fbbb13d470ca5cc";
 
   // make a get request to url
   fetch(apiUrl)
@@ -46,16 +46,23 @@ var getUserRepos = function(user) {
         console.log(response);
         response.json().then(function(data) {
           console.log(data);
-          displayRepos(data, user);
+          displayRepos(data, city);
         });
       } else {
         alert("Error: " + response.statusText);
       }
     })
     .catch(function(error) {
-      alert("Unable to connect to GitHub");
+      alert("Unable to find City");
     });
 };
+
+function setLocalStorage(city) {
+  if (recentSearches.indexOf(city) === -1) {
+    recentSearches.push(city);
+    localStorage.setItem("recents", JSON.stringify(recentSearches));
+  }
+}
 
 var getFeaturedRepos = function(language) {
   // format the github api url
@@ -77,7 +84,7 @@ var getFeaturedRepos = function(language) {
 var displayRepos = function(repos, searchTerm) {
   // check if api returned any repos
   if (repos.length === 0) {
-    repoContainerEl.textContent = "No repositories found.";
+    repoContainerEl.textContent = "No City found.";
     return;
   }
 
