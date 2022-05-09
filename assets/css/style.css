@@ -181,6 +181,12 @@ p {
   border-radius: var(--border-radius);
 }
 
+.fiveDayCard {
+  padding: 10px;
+  background-color: white;
+  color: black;
+}
+
 /* HEIGHT / WIDTH UTILS */
 .min-100-vh {
   min-height: 100vh;

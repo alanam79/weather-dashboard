@@ -3,24 +3,47 @@ var languageButtonsEl = document.querySelector("#language-buttons");
 var nameInputEl = document.querySelector("#username");
 var cityContainerEl = document.querySelector("#repos-container");
 var cityName = document.querySelector("#repo-search-term");
+var cityDateIcon = document.querySelector(".city-date-icon");
 var weatherData = document.querySelector("#city-weather");
+var currentWeather = document.getElementById("current-weather");
+var fiveDayWeather = document.getElementById("fiveDayWeather");
 var recentSearches = JSON.parse(localStorage.getItem("recents") || "[]");
+var recentContainer = document.querySelector("#recent");
+var clear = document.querySelector("#clearHistory");
+
+var renderRecents = function () {
+  // recentContainer.empty();
+  for (var i = 0; i < recentSearches; i++) {
+    var recentInput = $("<input>");
+    recentInput.attr("type", "text");
+    recentInput.attr("value", recentSearches[i]);
+    recentInput.on("click", function () {
+      getWeather($(this).attr("value"));
+    });
+    recentContainer.append(recentInput);
+  }
+};
 
 var formSubmitHandler = function (event) {
   // prevent page from refreshing
   event.preventDefault();
-
   // get value from input element
   var city = nameInputEl.value.trim();
 
   if (city) {
-    getWeather(city);
-
+    getCurrentWeather(city);
+    // renderRecents();
     // clear old content
-    cityName.textContent = "";
     nameInputEl.value = "";
   } else {
     alert("Please enter a City");
+  }
+};
+
+var setLocalStorage = function (city) {
+  if (recentSearches.indexOf(city) === -1) {
+    recentSearches.push(city);
+    localStorage.setItem("recents", JSON.stringify(recentSearches));
   }
 };
 
@@ -29,7 +52,7 @@ var buttonClickHandler = function (event) {
   var language = event.target.getAttribute("data-language");
 
   if (language) {
-    getFeaturedcitys(language);
+    getFeatureditys(language);
 
     // clear old content
     cityName.textContent = "";
@@ -37,22 +60,38 @@ var buttonClickHandler = function (event) {
   }
 };
 
-var getWeather = function (cityLat, cityLon) {
+var getCurrentWeather = function (city) {
   var apiUrl =
     "https://api.openweathermap.org/data/2.5/weather?q=" +
-    cityLat +
-    "&lon=" +
-    cityLon +
+    city +
     "&units=imperial&appid=dbbe680cb39d3e2a4fbbb13d470ca5cc";
 
   // make a get request to url
   fetch(apiUrl).then(function (response) {
     // request was successful
     if (response.ok) {
-      console.log(response);
       response.json().then(function (data) {
-        console.log(data);
-        displayCity(data, cityLat, cityLon);
+        console.log("data from api", data);
+        //  displayCity(data, city);
+
+        let cityName = data.name;
+        let temp = (document.createElement("p").textContent =
+          "Temperature: " + data.main.temp + "°F");
+        let humidity = (document.createElement("p").textContent =
+          "Humidity: " + data.main.humidity + "%");
+        let wind = (document.createElement("p").textContent =
+          "Wind Speed: " + data.wind.speed + "MPH");
+
+        currentWeather.append(temp, humidity, wind);
+
+        weatherData.append(cityName);
+
+        let coords = {
+          lat: data.coord.lat,
+          lon: data.coord.lon,
+        };
+
+        getFiveDay(coords);
       });
     } else {
       alert("Please enter a City");
@@ -60,72 +99,52 @@ var getWeather = function (cityLat, cityLon) {
   });
 };
 
-var displayCity = function (data) {
-  console.log(data);
+function getFiveDay({ lat, lon }) {
+  let fiveDayUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,current,hourly,alerts&appid=dbbe680cb39d3e2a4fbbb13d470ca5cc&units=imperial`;
 
-  var currentWeather = {
-    main: data.main,
-    wind: data.wind,
-    clouds: data.clouds,
-    coord: data.coord,
-    description: data.weather[0].icon
-  };
-  console.log(currentWeather);
-  weatherData.textContent = data.weather[0].main;
+  fetch(fiveDayUrl)
+    .then((response) => response.json())
+    .then((data) => {
+      // console.log("fiveDay data", data)
 
-  for (var i = 0; i < data.length; i++) {
-    // create a space for each city
-    var cityEl = document.createElement("div");
-    weatherData.classList =
-      "list-item flex-row justify-space-between align-center";
+      let uvIndex = (document.createElement("p").textContent =
+        "UV Index: " + data.daily[0].uvi);
+      currentWeather.append(uvIndex);
 
-    // create a h2 element to hold city name
-    var titleEl = document.createElement("ul");
-    titleEl.classList = "list-item flex-row justify-space-between align-center";
+      for (var i = 1; i < 6; i++) {
+        console.log(data.daily[i]);
 
-    // append to container
-    weatherData.appendChild(titleEl);
+        // put the date in the cardTitle...put the cardTitle in the cardHeader...put the cardHeader in the card
 
-    // create a h2 element
-    var statusEl = document.createElement("ul");
-    statusEl.classList = "flex-row align-center";
+        let card = document.createElement("div")
+        card.setAttribute("class", "card")
+        let cardTitle = document.createElement("h3")
+        cardTitle.setAttribute("class", "card-title");
+        cardTitle.textContent = "Put Date here"
+        let cardHeader = document.createElement("div")
+        cardHeader.setAttribute("class", "card-header");
+        let cardBody = document.createElement("div")
+        cardBody.setAttribute("class", "card-body")
 
-    // append to container
-    cityEl.appendChild(statusEl);
+        let temp = document.createElement("p")
+        temp.textContent = "Temp: " + data.daily[i].temp.day + "°F"
+        let humidity = document.createElement("p")
+        humidity.textContent = "Humidity: " + data.daily[i].humidity + "%"
+        let wind = document.createElement("p")
+        wind.textContent = "Wind: " + data.daily[i].wind_speed + "MPH"
 
-    // append container to the dom
-    weatherData.appendChild(cityEl);
-  }
 
-// function setLocalStorage(city) {
-//   if (recentSearches.indexOf(city) === -1) {
-//     recentSearches.push(city);
-//     localStorage.setItem("recents", JSON.stringify(recentSearches));
-//   }
-// }
+        cardHeader.append(cardTitle)
+        cardBody.append(temp, humidity, wind)
+        card.append(cardHeader, cardBody);
 
-var getFeaturedcitys = function (language) {
-  // format the github api url
-  var apiKey = "dbbe680cb39d3e2a4fbbb13d470ca5cc";
-  var apiUrl =
-    "https://api.openweathermap.org/data/2.5/weather?q=" +
-    city +
-    "&units=imperial&appid=" + apiKey;
+        fiveDayWeather.append(card);
+      }
+    })
+    .catch((err) => console.error(err));
+}
 
-  // make a get request to url
-  fetch(apiUrl).then(function (response) {
-    // request was successful
-    if (response.ok) {
-      response.json().then(function (data) {
-        displayCity(data.items, language);
-      });
-    } else {
-      alert("Error: " + response.statusText);
-    }
-  });
-};
-
-};
+// fiveDayData end
 
 // add event listeners to form and button container
 userFormEl.addEventListener("submit", formSubmitHandler);
