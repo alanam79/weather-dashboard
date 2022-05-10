@@ -1,16 +1,13 @@
 var userFormEl = document.querySelector("#user-form");
-var languageButtonsEl = document.querySelector("#language-buttons");
 var nameInputEl = document.querySelector("#username");
-var cityContainerEl = document.querySelector("#repos-container");
 var cityName = document.querySelector("#repo-search-term");
-var cityDateIcon = document.querySelector(".city-date-icon");
+var cityDateIcon = document.querySelector("c#ity-date-icon");
 var weatherData = document.querySelector("#city-weather");
 var currentWeather = document.getElementById("current-weather");
 var fiveDayWeather = document.getElementById("fiveDayWeather");
-var recentSearches = JSON.parse(localStorage.getItem("recents") || "[]");
-var recentContainer = document.querySelector("#recent");
-var clear = document.querySelector("#clearHistory");
-
+// var currentDate = moment();
+// var languageButtonsEl = document.querySelector("#language-buttons");
+// var recentSearches = JSON.parse(localStorage.getItem("recents") || "[]");
 
 var formSubmitHandler = function (event) {
   // prevent page from refreshing
@@ -55,14 +52,20 @@ var getCurrentWeather = function (city) {
         console.log("data from api", data);
         //  displayCity(data, city);
 
-        let cityName = data.name;
+        let cityName = data.name + iconurl;
         let temp = (document.createElement("p").textContent =
           "Temperature: " + data.main.temp + "°F");
         let humidity = (document.createElement("p").textContent =
           "Humidity: " + data.main.humidity + "%");
         let wind = (document.createElement("p").textContent =
           "Wind Speed: " + data.wind.speed + "MPH");
+        let weathericon = data.weather[0].icon;
+        let iconurl="https://openweathermap.org/img/wn/"+weathericon +"@2x.png";
 
+        //Dta object from server side Api for icon property.
+        console.log(weathericon);
+        // var iconurl =
+        //   "https://openweathermap.org/img/wn/" + weathericon + "@2x.png";
 
         currentWeather.append(temp, humidity, wind);
 
@@ -74,7 +77,6 @@ var getCurrentWeather = function (city) {
         };
 
         getFiveDay(coords);
-        // localStorage.getItem('weather');
       });
     } else {
       alert("Please enter a City");
@@ -121,7 +123,6 @@ function getFiveDay({ lat, lon }) {
         card.append(cardHeader, cardBody);
 
         fiveDayWeather.append(card);
-        localStorage.setItem('weather', getCurrentWeather);
       }
     })
     .catch((err) => console.error(err));
