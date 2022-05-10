@@ -60,7 +60,10 @@ var getCurrentWeather = function (city) {
           "Humidity: " + data.main.humidity + "%");
         let wind = (document.createElement("p").textContent =
           "Wind Speed: " + data.wind.speed + "MPH");
-        // let icon = data.weather[0] + icon;
+        let weathericon = data.weather[0].icon;
+          console.log(weathericon);
+
+        let iconUrl="https://openweathermap.org/img/wn/"+weathericon +"@2x.png";
 
         currentWeather.append(temp, humidity, wind);
 
