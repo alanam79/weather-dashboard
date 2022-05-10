@@ -11,12 +11,12 @@
   <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" />
   <link rel="stylesheet" href="./assets/css/style.css" />
-  <title>Git it Done</title>
+  <title>Weather Dashboard</title>
 </head>
 
 <body class="flex-column min-100-vh">
   <header class="hero">
-    <h1 class="app-title">Weather Dashboard</h1>
+    <h1 class="app-title">Alana's Weather Dashboard</h1>
   </header>
 
   <main class="flex-row justify-space-between">
@@ -33,9 +33,6 @@
       <div class="card d-flex">
         <div id="language-buttons" class="card-body">
           <h2 class="card-header">Search History</h2>
-          <button class="btn btn-primary mb-3" type="button" id="clearHistory">
-            Clear
-          </button>
           <form id="recent"></form>
           <button data-language="javascript" class="btn"></button>
           <button data-language="html" class="btn"></button>
@@ -58,20 +55,21 @@
       <br />
       <!-- cards with JS -->
       <div id="cards" class="d-flex container">
-          <div class="col-12-lg">
-            <div class="row" id="fiveDayWeather">
-
-            </div>
+        <div class="col-12-lg">
+          <div class="row" id="fiveDayWeather">
 
           </div>
+
         </div>
       </div>
     </div>
     </div>
     </div>
+    </div>
   </main>
   </main>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
   <script src="./assets/js/homepage.js"></script>
 </body>
 

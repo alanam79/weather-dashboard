@@ -11,18 +11,6 @@ var recentSearches = JSON.parse(localStorage.getItem("recents") || "[]");
 var recentContainer = document.querySelector("#recent");
 var clear = document.querySelector("#clearHistory");
 
-var renderRecents = function () {
-  // recentContainer.empty();
-  for (var i = 0; i < recentSearches; i++) {
-    var recentInput = $("<input>");
-    recentInput.attr("type", "text");
-    recentInput.attr("value", recentSearches[i]);
-    recentInput.on("click", function () {
-      getWeather($(this).attr("value"));
-    });
-    recentContainer.append(recentInput);
-  }
-};
 
 var formSubmitHandler = function (event) {
   // prevent page from refreshing
@@ -40,25 +28,18 @@ var formSubmitHandler = function (event) {
   }
 };
 
-var setLocalStorage = function (city) {
-  if (recentSearches.indexOf(city) === -1) {
-    recentSearches.push(city);
-    localStorage.setItem("recents", JSON.stringify(recentSearches));
-  }
-};
+// var buttonClickHandler = function (event) {
+//   // get the language attribute from the clicked element
+//   var language = event.target.getAttribute("data-language");
 
-var buttonClickHandler = function (event) {
-  // get the language attribute from the clicked element
-  var language = event.target.getAttribute("data-language");
+//   if (language) {
+//     getFeatureditys(language);
 
-  if (language) {
-    getFeatureditys(language);
-
-    // clear old content
-    cityName.textContent = "";
-    cityName.textContent = cityName;
-  }
-};
+//     // clear old content
+//     cityName.textContent = "";
+//     cityName.textContent = cityName;
+//   }
+// };
 
 var getCurrentWeather = function (city) {
   var apiUrl =
@@ -82,6 +63,7 @@ var getCurrentWeather = function (city) {
         let wind = (document.createElement("p").textContent =
           "Wind Speed: " + data.wind.speed + "MPH");
 
+
         currentWeather.append(temp, humidity, wind);
 
         weatherData.append(cityName);
@@ -92,6 +74,7 @@ var getCurrentWeather = function (city) {
         };
 
         getFiveDay(coords);
+        // localStorage.getItem('weather');
       });
     } else {
       alert("Please enter a City");
@@ -116,36 +99,34 @@ function getFiveDay({ lat, lon }) {
 
         // put the date in the cardTitle...put the cardTitle in the cardHeader...put the cardHeader in the card
 
-        let card = document.createElement("div")
-        card.setAttribute("class", "card")
-        let cardTitle = document.createElement("h3")
+        let card = document.createElement("div");
+        card.setAttribute("class", "card");
+        let cardTitle = document.createElement("h3");
         cardTitle.setAttribute("class", "card-title");
-        cardTitle.textContent = "Put Date here"
-        let cardHeader = document.createElement("div")
+        cardTitle.textContent = "Put Date here";
+        let cardHeader = document.createElement("div");
         cardHeader.setAttribute("class", "card-header");
-        let cardBody = document.createElement("div")
-        cardBody.setAttribute("class", "card-body")
+        let cardBody = document.createElement("div");
+        cardBody.setAttribute("class", "card-body");
 
-        let temp = document.createElement("p")
-        temp.textContent = "Temp: " + data.daily[i].temp.day + "°F"
-        let humidity = document.createElement("p")
-        humidity.textContent = "Humidity: " + data.daily[i].humidity + "%"
-        let wind = document.createElement("p")
-        wind.textContent = "Wind: " + data.daily[i].wind_speed + "MPH"
+        let temp = document.createElement("p");
+        temp.textContent = "Temp: " + data.daily[i].temp.day + "°F";
+        let humidity = document.createElement("p");
+        humidity.textContent = "Humidity: " + data.daily[i].humidity + "%";
+        let wind = document.createElement("p");
+        wind.textContent = "Wind: " + data.daily[i].wind_speed + "MPH";
 
-
-        cardHeader.append(cardTitle)
-        cardBody.append(temp, humidity, wind)
+        cardHeader.append(cardTitle);
+        cardBody.append(temp, humidity, wind);
         card.append(cardHeader, cardBody);
 
         fiveDayWeather.append(card);
+        localStorage.setItem('weather', getCurrentWeather);
       }
     })
     .catch((err) => console.error(err));
 }
 
-// fiveDayData end
-
 // add event listeners to form and button container
 userFormEl.addEventListener("submit", formSubmitHandler);
-languageButtonsEl.addEventListener("click", buttonClickHandler);
+// languageButtonsEl.addEventListener("click", buttonClickHandler);
