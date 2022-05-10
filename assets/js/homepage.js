@@ -5,7 +5,7 @@ var cityDateIcon = document.querySelector("c#ity-date-icon");
 var weatherData = document.querySelector("#city-weather");
 var currentWeather = document.getElementById("current-weather");
 var fiveDayWeather = document.getElementById("fiveDayWeather");
-// var currentDate = moment();
+var currentDate = moment();
 // var languageButtonsEl = document.querySelector("#language-buttons");
 // var recentSearches = JSON.parse(localStorage.getItem("recents") || "[]");
 
@@ -52,20 +52,15 @@ var getCurrentWeather = function (city) {
         console.log("data from api", data);
         //  displayCity(data, city);
 
-        let cityName = data.name + iconurl;
+        let cityName = data.name + currentDate.format(" (M/DD/YYYY) ");
+          // console.log(currentDate); checking current date is being pulled
         let temp = (document.createElement("p").textContent =
           "Temperature: " + data.main.temp + "°F");
         let humidity = (document.createElement("p").textContent =
           "Humidity: " + data.main.humidity + "%");
         let wind = (document.createElement("p").textContent =
           "Wind Speed: " + data.wind.speed + "MPH");
-        let weathericon = data.weather[0].icon;
-        let iconurl="https://openweathermap.org/img/wn/"+weathericon +"@2x.png";
-
-        //Dta object from server side Api for icon property.
-        console.log(weathericon);
-        // var iconurl =
-        //   "https://openweathermap.org/img/wn/" + weathericon + "@2x.png";
+        // let icon = data.weather[0] + icon;
 
         currentWeather.append(temp, humidity, wind);
 
@@ -105,7 +100,7 @@ function getFiveDay({ lat, lon }) {
         card.setAttribute("class", "card");
         let cardTitle = document.createElement("h3");
         cardTitle.setAttribute("class", "card-title");
-        cardTitle.textContent = "Put Date here";
+        cardTitle.textContent = currentDate.format(" (M/DD/YYYY) ");
         let cardHeader = document.createElement("div");
         cardHeader.setAttribute("class", "card-header");
         let cardBody = document.createElement("div");
