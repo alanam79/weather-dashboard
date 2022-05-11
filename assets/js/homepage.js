@@ -57,6 +57,7 @@ var getCurrentWeather = function (city) {
         let weather = document.createElement("img");
         // console.log(weatherCondition);
         weather.setAttribute("src", "https://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png");
+          
         let temp = (document.createElement("p").textContent =
           "Temperature: " + data.main.temp + "°F");
         let humidity = (document.createElement("p").textContent =
@@ -102,7 +103,7 @@ function getFiveDay({ lat, lon }) {
         card.setAttribute("class", "card");
         let cardTitle = document.createElement("h3");
         cardTitle.setAttribute("class", "card-title");
-        cardTitle.textContent = currentDate.format(" (M/DD/YYYY) ");
+        cardTitle.textContent = new Date(data.daily[i].dt*1000);
         let cardHeader = document.createElement("div");
         cardHeader.setAttribute("class", "card-header");
         let cardBody = document.createElement("div");
