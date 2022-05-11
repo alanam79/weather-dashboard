@@ -54,18 +54,17 @@ var getCurrentWeather = function (city) {
 
         let cityName = data.name + currentDate.format(" (M/DD/YYYY) ");
           // console.log(currentDate); checking current date is being pulled
+        let weather = (document.createElement("img") + data.weather[0].icon);
+        // console.log(weatherCondition);
+        weatherCondition.setAttribute("src", "https://openweathermap.org/img/wn/" + data.weather.icon + "@2x.png");
         let temp = (document.createElement("p").textContent =
           "Temperature: " + data.main.temp + "°F");
         let humidity = (document.createElement("p").textContent =
           "Humidity: " + data.main.humidity + "%");
         let wind = (document.createElement("p").textContent =
           "Wind Speed: " + data.wind.speed + "MPH");
-        let weathericon = data.weather[0].icon;
-          console.log(weathericon);
 
-        let iconUrl="https://openweathermap.org/img/wn/"+weathericon +"@2x.png";
-
-        currentWeather.append(temp, humidity, wind);
+        currentWeather.append(weather, temp, humidity, wind);
 
         weatherData.append(cityName);
 
@@ -109,6 +108,8 @@ function getFiveDay({ lat, lon }) {
         let cardBody = document.createElement("div");
         cardBody.setAttribute("class", "card-body");
 
+        let weatherImg = document.createElement("img");
+        weatherImg.setAttribute = data.daily[i].weather.icon;
         let temp = document.createElement("p");
         temp.textContent = "Temp: " + data.daily[i].temp.day + "°F";
         let humidity = document.createElement("p");
@@ -117,7 +118,7 @@ function getFiveDay({ lat, lon }) {
         wind.textContent = "Wind: " + data.daily[i].wind_speed + "MPH";
 
         cardHeader.append(cardTitle);
-        cardBody.append(temp, humidity, wind);
+        cardBody.append(weatherImg, temp, humidity, wind);
         card.append(cardHeader, cardBody);
 
         fiveDayWeather.append(card);
