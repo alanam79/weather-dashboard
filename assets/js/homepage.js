@@ -110,11 +110,11 @@ function getFiveDay({ lat, lon }) {
 
         let weather = document.createElement("img");
         weather.setAttribute("src", "https://openweathermap.org/img/wn/" + data.daily[i].weather[0].icon + "@2x.png");
-        let temp = document.createElement("p");
+        let temp = document.createElement("h4");
         temp.textContent = "Temp: " + data.daily[i].temp.day + "°F";
-        let humidity = document.createElement("p");
+        let humidity = document.createElement("h4");
         humidity.textContent = "Humidity: " + data.daily[i].humidity + "%";
-        let wind = document.createElement("p");
+        let wind = document.createElement("h4");
         wind.textContent = "Wind: " + data.daily[i].wind_speed + "MPH";
 
         cardHeader.append(cardTitle);
