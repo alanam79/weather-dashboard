@@ -25,6 +25,7 @@ var formSubmitHandler = function (event) {
   }
 };
 
+
 // var buttonClickHandler = function (event) {
 //   // get the language attribute from the clicked element
 //   var language = event.target.getAttribute("data-language");
@@ -38,9 +39,11 @@ var formSubmitHandler = function (event) {
 //   }
 // };
 
+// var url = "https://api.openweathermap.org/data/2.5/weather?q=";
+
 var getCurrentWeather = function (city) {
   var apiUrl =
-    "https://api.openweathermap.org/data/2.5/weather?q=" +
+  "https://api.openweathermap.org/data/2.5/weather?q=" +
     city +
     "&units=imperial&appid=dbbe680cb39d3e2a4fbbb13d470ca5cc";
 
@@ -53,19 +56,27 @@ var getCurrentWeather = function (city) {
         //  displayCity(data, city);
 
         let cityName = data.name + currentDate.format(" (M/DD/YYYY) ");
-          // console.log(currentDate); checking current date is being pulled
+        // console.log(currentDate); checking current date is being pulled
         let weather = document.createElement("img");
         // console.log(weatherCondition);
-        weather.setAttribute("src", "https://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png");
-          
-        let temp = (document.createElement("p").textContent =
-          "Temperature: " + data.main.temp + "°F");
-        let humidity = (document.createElement("p").textContent =
-          "Humidity: " + data.main.humidity + "%");
-        let wind = (document.createElement("p").textContent =
-          "Wind Speed: " + data.wind.speed + "MPH");
+        weather.setAttribute(
+          "src",
+          "https://openweathermap.org/img/wn/" +
+            data.weather[0].icon +
+            "@2x.png"
+        );
 
-        currentWeather.append(weather, temp, humidity, wind);
+        let temp = document.createElement("p")
+        temp.innerText = "Temperature: " + data.main.temp + "°F";
+        let humidity = document.createElement("p")
+        humidity.innerText = "Humidity: " + data.main.humidity + "%";
+        let wind = document.createElement("p")
+        wind.innerText = "Wind Speed: " + data.wind.speed + "MPH";
+
+        currentWeather.append(weather);
+        currentWeather.append(temp);
+        currentWeather.append(humidity);
+        currentWeather.append(wind);
 
         weatherData.append(cityName);
 
@@ -101,16 +112,21 @@ function getFiveDay({ lat, lon }) {
 
         let card = document.createElement("div");
         card.setAttribute("class", "card");
-        let cardTitle = document.createElement("h3");
+        let cardTitle = document.createElement("p");
         cardTitle.setAttribute("class", "card-title");
-        cardTitle.textContent = new Date(data.daily[i].dt*1000);
+        cardTitle.textContent = new Date(data.daily[i].dt * 1000);
         let cardHeader = document.createElement("div");
         cardHeader.setAttribute("class", "card-header");
         let cardBody = document.createElement("div");
         cardBody.setAttribute("class", "card-body");
 
         let weather = document.createElement("img");
-        weather.setAttribute("src", "https://openweathermap.org/img/wn/" + data.daily[i].weather[0].icon + "@2x.png");
+        weather.setAttribute(
+          "src",
+          "https://openweathermap.org/img/wn/" +
+            data.daily[i].weather[0].icon +
+            "@2x.png"
+        );
         let temp = document.createElement("h4");
         temp.textContent = "Temp: " + data.daily[i].temp.day + "°F";
         let humidity = document.createElement("h4");
