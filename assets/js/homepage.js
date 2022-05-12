@@ -72,6 +72,7 @@ var getCurrentWeather = function (city) {
         let wind = document.createElement("p");
         wind.innerText = "Wind Speed: " + data.wind.speed + "MPH";
 
+        
         currentWeather.append(cityName);
         currentWeather.append(weather);
         currentWeather.append(temp);
