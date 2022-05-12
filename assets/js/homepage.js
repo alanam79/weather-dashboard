@@ -103,21 +103,20 @@ function getFiveDay({ lat, lon }) {
       let uvIndex = document.createElement("p");
       uvIndex.innerText = "UV Index: " + data.daily[0].uvi;
       currentWeather.append(uvIndex);
-
-      // var uviLine = document.querySelector(".uvIndex");
-
-      // if (uvIndex >= 8) {
-      //   uviLine.classList.add("badge", "badge-danger");
-      // }
-      // if (uvIndex >= 6 && uvIndex < 8) {
-      //   uviLine.classList.add("badge", "badge-warning");
-      // }
-      // if (uvIndex < 6 && uvIndex >= 3) {
-      //   uviLine.classList.add("badge", "badge-success");
-      // }
-      // if (uvIndex < 3) {
-      //   uviLine.classList.add("badge", "badge-info");
-      // }
+      console.log(uvIndex);
+      
+      if (data.daily[0].uvi >= 8) {
+        uvIndex.classList.add("badge", "badge-danger");
+      }
+      if (data.daily[0].uvi>= 6 && data.daily[0].uvi  < 8) {
+        uvIndex.classList.add("badge", "badge-warning");
+      }
+      if (data.daily[0].uvi< 6 && data.daily[0].uvi  >= 3) {
+        uvIndex.classList.add("badge", "badge-success");
+      }
+      if (data.daily[0].uvi < 3) {
+        uvIndex.classList.add("badge", "badge-info");
+      }
 
       for (var i = 1; i < 6; i++) {
         console.log(data.daily[i]);
