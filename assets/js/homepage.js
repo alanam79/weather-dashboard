@@ -5,9 +5,8 @@ var cityDateIcon = document.querySelector("c#ity-date-icon");
 var weatherData = document.querySelector("#city-weather");
 var currentWeather = document.getElementById("current-weather");
 var fiveDayWeather = document.getElementById("fiveDayWeather");
+var getSearchHistoryEl = document.getElementById("searchHistory");
 var currentDate = moment();
-// var languageButtonsEl = document.querySelector("#language-buttons");
-// var recentSearches = JSON.parse(localStorage.getItem("recents") || "[]");
 
 var formSubmitHandler = function (event) {
   // prevent page from refreshing
@@ -17,7 +16,8 @@ var formSubmitHandler = function (event) {
 
   if (city) {
     getCurrentWeather(city);
-    // renderRecents();
+    localStorage.setItem("searchedCity", JSON.stringify(city)); //set search history in localStorage
+
     // clear old content
     nameInputEl.value = "";
   } else {
@@ -25,20 +25,9 @@ var formSubmitHandler = function (event) {
   }
 };
 
-// var buttonClickHandler = function (event) {
-//   // get the language attribute from the clicked element
-//   var language = event.target.getAttribute("data-language");
-
-//   if (language) {
-//     getFeatureditys(language);
-
-//     // clear old content
-//     cityName.textContent = "";
-//     cityName.textContent = cityName;
-//   }
-// };
-
-// var url = "https://api.openweathermap.org/data/2.5/weather?q=";
+var citySearchHistory = function (event) {
+  (localStorage.getItem("searchedCity") || "[]");
+}
 
 var getCurrentWeather = function (city) {
   var apiUrl =
@@ -55,9 +44,8 @@ var getCurrentWeather = function (city) {
         //  displayCity(data, city);
 
         let cityName = data.name + currentDate.format(" (M/DD/YYYY) ");
-        // console.log(currentDate); checking current date is being pulled
+        console.log(cityName)
         let weather = document.createElement("img");
-        // console.log(weatherCondition);
         weather.setAttribute(
           "src",
           "https://openweathermap.org/img/wn/" +
@@ -94,18 +82,19 @@ var getCurrentWeather = function (city) {
   });
 };
 
+
 function getFiveDay({ lat, lon }) {
   let fiveDayUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,current,hourly,alerts&appid=dbbe680cb39d3e2a4fbbb13d470ca5cc&units=imperial`;
 
   fetch(fiveDayUrl)
     .then((response) => response.json())
     .then((data) => {
-      // console.log("fiveDay data", data)
+      console.log("fiveDay data", data)
 
       let uvIndex = document.createElement("p");
       uvIndex.innerText = "UV Index: " + data.daily[0].uvi;
       currentWeather.append(uvIndex);
-      console.log(uvIndex);
+      // console.log(uvIndex);
 
       if (data.daily[0].uvi >= 8) {
         uvIndex.classList.add("badge", "badge-danger");
@@ -157,6 +146,7 @@ function getFiveDay({ lat, lon }) {
     .catch((err) => console.error(err));
 }
 
+
 // add event listeners to form and button container
 userFormEl.addEventListener("submit", formSubmitHandler);
-// languageButtonsEl.addEventListener("click", buttonClickHandler);
+getSearchHistoryEl.addEventListener("submit", citySearchHistory);
