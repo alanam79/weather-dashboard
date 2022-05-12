@@ -72,6 +72,7 @@ var getCurrentWeather = function (city) {
         let wind = document.createElement("p");
         wind.innerText = "Wind Speed: " + data.wind.speed + "MPH";
 
+        currentWeather.append(cityName);
         currentWeather.append(weather);
         currentWeather.append(temp);
         currentWeather.append(humidity);
@@ -104,14 +105,14 @@ function getFiveDay({ lat, lon }) {
       uvIndex.innerText = "UV Index: " + data.daily[0].uvi;
       currentWeather.append(uvIndex);
       console.log(uvIndex);
-      
+
       if (data.daily[0].uvi >= 8) {
         uvIndex.classList.add("badge", "badge-danger");
       }
-      if (data.daily[0].uvi>= 6 && data.daily[0].uvi  < 8) {
+      if (data.daily[0].uvi >= 6 && data.daily[0].uvi < 8) {
         uvIndex.classList.add("badge", "badge-warning");
       }
-      if (data.daily[0].uvi< 6 && data.daily[0].uvi  >= 3) {
+      if (data.daily[0].uvi < 6 && data.daily[0].uvi >= 3) {
         uvIndex.classList.add("badge", "badge-success");
       }
       if (data.daily[0].uvi < 3) {
@@ -120,8 +121,6 @@ function getFiveDay({ lat, lon }) {
 
       for (var i = 1; i < 6; i++) {
         console.log(data.daily[i]);
-
-        // put the date in the cardTitle...put the cardTitle in the cardHeader...put the cardHeader in the card
 
         let card = document.createElement("div");
         card.setAttribute("class", "card");
