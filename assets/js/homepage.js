@@ -25,7 +25,6 @@ var formSubmitHandler = function (event) {
   }
 };
 
-
 // var buttonClickHandler = function (event) {
 //   // get the language attribute from the clicked element
 //   var language = event.target.getAttribute("data-language");
@@ -43,7 +42,7 @@ var formSubmitHandler = function (event) {
 
 var getCurrentWeather = function (city) {
   var apiUrl =
-  "https://api.openweathermap.org/data/2.5/weather?q=" +
+    "https://api.openweathermap.org/data/2.5/weather?q=" +
     city +
     "&units=imperial&appid=dbbe680cb39d3e2a4fbbb13d470ca5cc";
 
@@ -66,11 +65,11 @@ var getCurrentWeather = function (city) {
             "@2x.png"
         );
 
-        let temp = document.createElement("p")
+        let temp = document.createElement("p");
         temp.innerText = "Temperature: " + data.main.temp + "°F";
-        let humidity = document.createElement("p")
+        let humidity = document.createElement("p");
         humidity.innerText = "Humidity: " + data.main.humidity + "%";
-        let wind = document.createElement("p")
+        let wind = document.createElement("p");
         wind.innerText = "Wind Speed: " + data.wind.speed + "MPH";
 
         currentWeather.append(weather);
@@ -101,9 +100,24 @@ function getFiveDay({ lat, lon }) {
     .then((data) => {
       // console.log("fiveDay data", data)
 
-      let uvIndex = (document.createElement("p").textContent =
-        "UV Index: " + data.daily[0].uvi);
+      let uvIndex = document.createElement("p");
+      uvIndex.innerText = "UV Index: " + data.daily[0].uvi;
       currentWeather.append(uvIndex);
+
+      // var uviLine = document.querySelector(".uvIndex");
+
+      // if (uvIndex >= 8) {
+      //   uviLine.classList.add("badge", "badge-danger");
+      // }
+      // if (uvIndex >= 6 && uvIndex < 8) {
+      //   uviLine.classList.add("badge", "badge-warning");
+      // }
+      // if (uvIndex < 6 && uvIndex >= 3) {
+      //   uviLine.classList.add("badge", "badge-success");
+      // }
+      // if (uvIndex < 3) {
+      //   uviLine.classList.add("badge", "badge-info");
+      // }
 
       for (var i = 1; i < 6; i++) {
         console.log(data.daily[i]);
