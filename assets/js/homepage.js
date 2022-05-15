@@ -9,14 +9,25 @@ var getSearchHistoryEl = document.getElementById("searchHistory");
 var currentDate = moment();
 
 var formSubmitHandler = function (event) {
-  // prevent page from refreshing
+      // prevent page from refreshing
   event.preventDefault();
-  // get value from input element
+      // get value from input element
   var city = nameInputEl.value.trim();
+
+  let cityName = JSON.parse(localStorage.getItem("cityName")) || [];
+
+  const cityNameEntered = {
+    cityInfo: city,
+  };
+
+  console.log("newCityName entered", cityNameEntered);
+
+  cityName.push(cityNameEntered);
+  console.log("city entered", cityName);
+  localStorage.setItem("city", JSON.stringify(cityName));
 
   if (city) {
     getCurrentWeather(city);
-    localStorage.setItem("searchedCity", JSON.stringify(city)); //set search history in localStorage
 
     // clear old content
     nameInputEl.value = "";
@@ -24,11 +35,6 @@ var formSubmitHandler = function (event) {
     alert("Please enter a City");
   }
 };
-
-var citySearchHistory = function (event) {
-  (localStorage.getItem("searchedCity") || "[]");
-}
-
 var getCurrentWeather = function (city) {
   var apiUrl =
     "https://api.openweathermap.org/data/2.5/weather?q=" +
@@ -44,7 +50,7 @@ var getCurrentWeather = function (city) {
         //  displayCity(data, city);
 
         let cityName = data.name + currentDate.format(" (M/DD/YYYY) ");
-        console.log(cityName)
+        console.log(cityName);
         let weather = document.createElement("img");
         weather.setAttribute(
           "src",
@@ -60,7 +66,6 @@ var getCurrentWeather = function (city) {
         let wind = document.createElement("p");
         wind.innerText = "Wind Speed: " + data.wind.speed + "MPH";
 
-        
         currentWeather.append(cityName);
         currentWeather.append(weather);
         currentWeather.append(temp);
@@ -82,14 +87,13 @@ var getCurrentWeather = function (city) {
   });
 };
 
-
 function getFiveDay({ lat, lon }) {
   let fiveDayUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,current,hourly,alerts&appid=dbbe680cb39d3e2a4fbbb13d470ca5cc&units=imperial`;
 
   fetch(fiveDayUrl)
     .then((response) => response.json())
     .then((data) => {
-      console.log("fiveDay data", data)
+      console.log("fiveDay data", data);
 
       let uvIndex = document.createElement("p");
       uvIndex.innerText = "UV Index: " + data.daily[0].uvi;
@@ -146,7 +150,6 @@ function getFiveDay({ lat, lon }) {
     .catch((err) => console.error(err));
 }
 
-
 // add event listeners to form and button container
 userFormEl.addEventListener("submit", formSubmitHandler);
-getSearchHistoryEl.addEventListener("submit", citySearchHistory);
+// getSearchHistoryEl.addEventListener("submit", citySearchHistory);
