@@ -10,12 +10,16 @@ var currentDate = moment();
 var cityName = JSON.parse(localStorage.getItem("city")) || [];
 
 var formSubmitHandler = function (event) {
-      // prevent page from refreshing
+  // prevent page from refreshing
   event.preventDefault();
-      // get value from input element
+  // get value from input element
   var city = nameInputEl.value.trim();
 
   let cityName = JSON.parse(localStorage.getItem("city")) || [];
+
+  // const nameEntered = {  removed this because it was pushing an object instead of an array
+  //   name: username,
+  // };
 
   console.log("newCityName entered", cityName);
 
@@ -147,6 +151,21 @@ function getFiveDay({ lat, lon }) {
     .catch((err) => console.error(err));
 }
 
-// add event listeners to form and button container
+
+var citySearchHistory = function (event) {
+  console.log(event); // verify click event is working
+}
+
+var cityNameList = [cityName];
+// console.log(cityName.length);
+
+for(var i = 0; i < cityName.length; i++) {
+  console.log(cityName[i]);
+  console.log(i)
+  console.log(cityName[i] + " is awesome!");
+}
+
+// start event listeners 
 userFormEl.addEventListener("submit", formSubmitHandler);
-// getSearchHistoryEl.addEventListener("submit", citySearchHistory);
+getSearchHistoryEl.addEventListener("click", citySearchHistory);
+// end event listeners 

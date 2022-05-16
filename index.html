@@ -29,18 +29,18 @@
           <button type="submit" class="btn">Search</button>
         </form>
       </div>
-
+      <!-- search history start -->
       <div class="card d-flex">
-        <div id="language-buttons" class="card-body">
+        <div id="search-buttons" class="card-body">
           <h2 class="card-header">Search History</h2>
           <form id="recent"></form>
-          <button id="searchHistory" class="btn"></button>
+          <button type="click" id="searchHistory" class="btn">
+          </button>
         </div>
       </div>
     </div>
-
+    <!-- search history end -->
     <div class="m-6 card col-6 col-md-8 display">
-
       <h3 id="city-weather" class="list-group"></h3>
       <div id="current-weather" class="city-date-icon">
       </div>
@@ -50,13 +50,11 @@
     <div class="m-6 card col-6 col-md-8 display five-day-forecast">
       <h3 class="fiveDayHeader">5-Day Forecast:</h3>
       <br />
-      <!-- cards with JS --> 
+      <!-- cards with JS -->
       <div id="cards" class="d-flex container">
         <div id="currentDay" class="col-12-lg">
           <div class="row" id="fiveDayWeather">
-              
           </div>
-
         </div>
       </div>
     </div>
