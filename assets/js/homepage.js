@@ -16,15 +16,15 @@ var formSubmitHandler = function (event) {
 
   let cityName = JSON.parse(localStorage.getItem("cityName")) || [];
 
-  const cityNameEntered = {
-    cityInfo: city,
+  const newCity = {
+    cityInfo: city
   };
 
-  console.log("newCityName entered", cityNameEntered);
+  console.log("newCityName entered", newCity);
 
-  cityName.push(cityNameEntered);
+  cityName.push(newCity);
   console.log("city entered", cityName);
-  localStorage.setItem("city", JSON.stringify(cityName));
+  localStorage.setItem("city", JSON.stringify(newCity));
 
   if (city) {
     getCurrentWeather(city);
