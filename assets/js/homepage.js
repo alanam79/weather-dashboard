@@ -7,6 +7,7 @@ var currentWeather = document.getElementById("current-weather");
 var fiveDayWeather = document.getElementById("fiveDayWeather");
 var getSearchHistoryEl = document.getElementById("searchHistory");
 var currentDate = moment();
+var cityName = JSON.parse(localStorage.getItem("city")) || [];
 
 var formSubmitHandler = function (event) {
       // prevent page from refreshing
@@ -14,17 +15,13 @@ var formSubmitHandler = function (event) {
       // get value from input element
   var city = nameInputEl.value.trim();
 
-  let cityName = JSON.parse(localStorage.getItem("cityName")) || [];
+  let cityName = JSON.parse(localStorage.getItem("city")) || [];
 
-  const newCity = {
-    cityInfo: city
-  };
+  console.log("newCityName entered", cityName);
 
-  console.log("newCityName entered", newCity);
-
-  cityName.push(newCity);
+  cityName.push(city);
   console.log("city entered", cityName);
-  localStorage.setItem("city", JSON.stringify(newCity));
+  localStorage.setItem("city", JSON.stringify(cityName));
 
   if (city) {
     getCurrentWeather(city);
