@@ -6,6 +6,7 @@ var weatherData = document.querySelector("#city-weather");
 var currentWeather = document.getElementById("current-weather");
 var fiveDayWeather = document.getElementById("fiveDayWeather");
 var getSearchHistoryEl = document.getElementById("searchHistory");
+var priorSearchHistoryEl = document.getElementById("search-buttons");
 var currentDate = moment();
 var cityName = JSON.parse(localStorage.getItem("city")) || [];
 
@@ -151,17 +152,23 @@ function getFiveDay({ lat, lon }) {
     .catch((err) => console.error(err));
 }
 
-var citySearchHistory = function (event) {
-  console.log(event); // verify click event is working
-};
-
 var cityNameList = [cityName];
 // console.log(cityName.length);
 
 for (var i = 0; i < cityName.length; i++) {
   console.log(cityName[i]);
   console.log(i);
-  console.log(cityName[i] + " is awesome!");
+
+  var priorCity = cityName[i];
+
+
+  var priorSearchHistoryEl = document.createElement("div");
+  priorSearchHistoryEl.classList = "list-item flew-row";
+
+  var getSearchHistoryEl = document.createElement("span");
+  getSearchHistoryEl.textContent = priorCity;
+
+  priorSearchHistoryEl.appendChild(getSearchHistoryEl);
 }
 
 // CLEAR BUTTON START
