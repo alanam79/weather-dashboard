@@ -152,24 +152,25 @@ function getFiveDay({ lat, lon }) {
     .catch((err) => console.error(err));
 }
 
-var cityNameList = [cityName];
-// console.log(cityName.length);
 
-for (var i = 0; i < cityName.length; i++) {
-  console.log(cityName[i]);
-  console.log(i);
+// var cityNameList = [cityName];
+// // console.log(cityName.length);
 
-  var priorCity = cityName[i];
+// for (var i = 0; i < cityName.length; i++) {
+//   console.log(cityName[i]);
+//   console.log(i);
+
+//   var priorCity = cityName[i];
 
 
-  var priorSearchHistoryEl = document.createElement("div");
-  priorSearchHistoryEl.classList = "list-item flew-row";
+//   var priorSearchHistoryEl = document.createElement("div");
+//   priorSearchHistoryEl.classList = "list-item flew-row";
 
-  var getSearchHistoryEl = document.createElement("span");
-  getSearchHistoryEl.textContent = priorCity;
+//   var getSearchHistoryEl = document.createElement("span");
+//   getSearchHistoryEl.textContent = priorCity;
 
-  priorSearchHistoryEl.appendChild(getSearchHistoryEl);
-}
+//   priorSearchHistoryEl.appendChild(getSearchHistoryEl);
+// }
 
 // CLEAR BUTTON START
 var clearSearch = function (event) {
