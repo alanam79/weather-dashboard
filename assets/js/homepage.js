@@ -151,21 +151,28 @@ function getFiveDay({ lat, lon }) {
     .catch((err) => console.error(err));
 }
 
-
 var citySearchHistory = function (event) {
   console.log(event); // verify click event is working
-}
+};
 
 var cityNameList = [cityName];
 // console.log(cityName.length);
 
-for(var i = 0; i < cityName.length; i++) {
+for (var i = 0; i < cityName.length; i++) {
   console.log(cityName[i]);
-  console.log(i)
+  console.log(i);
   console.log(cityName[i] + " is awesome!");
 }
 
-// start event listeners 
+// CLEAR BUTTON START
+var clearSearch = function (event) {
+  localStorage.removeItem("city");
+  window.location.reload();
+  console.log(event);
+};
+// CLEAR BUTTON END
+
+// start event listeners
 userFormEl.addEventListener("submit", formSubmitHandler);
-getSearchHistoryEl.addEventListener("click", citySearchHistory);
-// end event listeners 
+getSearchHistoryEl.addEventListener("click", clearSearch);
+// end event listeners
