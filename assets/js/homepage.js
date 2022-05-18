@@ -27,6 +27,7 @@ var formSubmitHandler = function (event) {
   cityName.push(city);
   console.log("city entered", cityName);
   localStorage.setItem("city", JSON.stringify(cityName));
+  showHistory();
 
   if (city) {
     getCurrentWeather(city);
@@ -152,25 +153,9 @@ function getFiveDay({ lat, lon }) {
     .catch((err) => console.error(err));
 }
 
+var cityNameList = [cityName];
+// console.log(cityName.length);
 
-// var cityNameList = [cityName];
-// // console.log(cityName.length);
-
-// for (var i = 0; i < cityName.length; i++) {
-//   console.log(cityName[i]);
-//   console.log(i);
-
-//   var priorCity = cityName[i];
-
-
-//   var priorSearchHistoryEl = document.createElement("div");
-//   priorSearchHistoryEl.classList = "list-item flew-row";
-
-//   var getSearchHistoryEl = document.createElement("span");
-//   getSearchHistoryEl.textContent = priorCity;
-
-//   priorSearchHistoryEl.appendChild(getSearchHistoryEl);
-// }
 
 // CLEAR BUTTON START
 var clearSearch = function (event) {
@@ -179,6 +164,24 @@ var clearSearch = function (event) {
   console.log(event);
 };
 // CLEAR BUTTON END
+
+// var cityNameList = [cityName];
+// console.log(cityName.length);
+
+var showHistory = function()  {
+for (var i = 0; i < cityName.length; i++) {
+  console.log(cityName[i]);
+  console.log(i);
+
+  var priorCity = cityName[i];
+
+  var getHistory = document.createElement("button");
+  getHistory.textContent = priorCity;
+// getHistory.addEventLister - search for the city in the prior search button
+  priorSearchHistoryEl.appendChild(getHistory);
+}
+}
+showHistory();
 
 // start event listeners
 userFormEl.addEventListener("submit", formSubmitHandler);
