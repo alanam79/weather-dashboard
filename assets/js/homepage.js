@@ -1,6 +1,6 @@
 var userFormEl = document.querySelector("#user-form");
 var nameInputEl = document.querySelector("#username");
-var cityName = document.querySelector("#repo-search-term");
+var cityNameEl = document.querySelector("#repo-search-term");
 var cityDateIcon = document.querySelector("c#ity-date-icon");
 var weatherData = document.querySelector("#city-weather");
 var currentWeather = document.getElementById("current-weather");
@@ -16,7 +16,7 @@ var formSubmitHandler = function (event) {
   // get value from input element
   var city = nameInputEl.value.trim();
 
-  let cityName = JSON.parse(localStorage.getItem("city")) || [];
+  // let cityName = JSON.parse(localStorage.getItem("city")) || [];
 
   // const nameEntered = {  removed this because it was pushing an object instead of an array
   //   name: username,
@@ -24,20 +24,23 @@ var formSubmitHandler = function (event) {
 
   console.log("newCityName entered", cityName);
 
+if (city.length > 0) {
   cityName.push(city);
   console.log("city entered", cityName);
   localStorage.setItem("city", JSON.stringify(cityName));
   showHistory();
 
-  if (city) {
+  // if (city) {
     getCurrentWeather(city);
 
     // clear old content
     nameInputEl.value = "";
+  // } else {
+  //   alert("Please enter a City");
   } else {
     alert("Please enter a City");
-  }
 };
+}
 var getCurrentWeather = function (city) {
   var apiUrl =
     "https://api.openweathermap.org/data/2.5/weather?q=" +
@@ -156,7 +159,6 @@ function getFiveDay({ lat, lon }) {
 var cityNameList = [cityName];
 // console.log(cityName.length);
 
-
 // CLEAR BUTTON START
 var clearSearch = function (event) {
   localStorage.removeItem("city");
@@ -168,20 +170,23 @@ var clearSearch = function (event) {
 // var cityNameList = [cityName];
 // console.log(cityName.length);
 
-var showHistory = function()  {
-for (var i = 0; i < cityName.length; i++) {
-  console.log(cityName[i]);
-  console.log(i);
+// SEARCH HISTORY RESULTS START
+var showHistory = function () {
+  priorSearchHistoryEl.replaceChildren();
+  for (var i = 0; i < cityName.length; i++) {
+    console.log(cityName[i]);
+    console.log(i);
 
-  var priorCity = cityName[i];
+    var priorCity = cityName[i];
 
-  var getHistory = document.createElement("button");
-  getHistory.textContent = priorCity;
-// getHistory.addEventLister - search for the city in the prior search button
-  priorSearchHistoryEl.appendChild(getHistory);
-}
-}
+    var getHistory = document.createElement("button");
+    getHistory.textContent = priorCity;
+    // enter: getHistory.addEventLister - here to search for the city in the prior search button
+    priorSearchHistoryEl.appendChild(getHistory);
+  }
+};
 showHistory();
+// SEARCH HISTORY RESULTS END
 
 // start event listeners
 userFormEl.addEventListener("submit", formSubmitHandler);
