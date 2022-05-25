@@ -10,13 +10,19 @@ var priorSearchHistoryEl = document.getElementById("search-buttons");
 var currentDate = moment();
 var cityName = JSON.parse(localStorage.getItem("city")) || [];
 
+// for the buttons that appear under the search history, part of this on line 33 should be moved from line 33 to here
+// var priorCitySearch = function(city) {
+  // cityName.push(city);
+  // console.log("city entered", cityName);
+  // localStorage.setItem("city", JSON.stringify(cityName));
+  // showHistory();
+// }
+
 var formSubmitHandler = function (event) {
   // prevent page from refreshing
   event.preventDefault();
   // get value from input element
   var city = nameInputEl.value.trim();
-
-  // let cityName = JSON.parse(localStorage.getItem("city")) || [];
 
   // const nameEntered = {  removed this because it was pushing an object instead of an array
   //   name: username,
@@ -24,23 +30,27 @@ var formSubmitHandler = function (event) {
 
   console.log("newCityName entered", cityName);
 
-if (city.length > 0) {
-  cityName.push(city);
-  console.log("city entered", cityName);
-  localStorage.setItem("city", JSON.stringify(cityName));
-  showHistory();
+  if (city.length > 0) {
+    cityName.push(city);
+    console.log("city entered", cityName);
+    localStorage.setItem("city", JSON.stringify(cityName));
+    showHistory();
 
-  // if (city) {
+    // if (city) {
     getCurrentWeather(city);
 
     // clear old content
     nameInputEl.value = "";
-  // } else {
-  //   alert("Please enter a City");
+
+  }
+  if (!city === cityName) {
+      alert("Please enter a valid City");
+
   } else {
     alert("Please enter a City");
+  }
 };
-}
+
 var getCurrentWeather = function (city) {
   var apiUrl =
     "https://api.openweathermap.org/data/2.5/weather?q=" +
