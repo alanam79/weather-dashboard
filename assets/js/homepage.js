@@ -15,11 +15,7 @@ var formSubmitHandler = function (event) {
   event.preventDefault();
   // get value from input element
   var city = nameInputEl.value.trim();
-
-  // const nameEntered = {  removed this because it was pushing an object instead of an array
-  //   name: username,
-  // };
-
+  
   console.log("newCityName entered", cityName);
 
   if (city.length > 0) {
