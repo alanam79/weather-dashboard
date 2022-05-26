@@ -10,14 +10,6 @@ var priorSearchHistoryEl = document.getElementById("search-buttons");
 var currentDate = moment();
 var cityName = JSON.parse(localStorage.getItem("city")) || [];
 
-// for the buttons that appear under the search history, part of this on line 33 should be moved from line 33 to here
-// var priorCitySearch = function(city) {
-  // cityName.push(city);
-  // console.log("city entered", cityName);
-  // localStorage.setItem("city", JSON.stringify(cityName));
-  // showHistory();
-// }
-
 var formSubmitHandler = function (event) {
   // prevent page from refreshing
   event.preventDefault();
@@ -31,25 +23,52 @@ var formSubmitHandler = function (event) {
   console.log("newCityName entered", cityName);
 
   if (city.length > 0) {
-    cityName.push(city);
-    console.log("city entered", cityName);
-    localStorage.setItem("city", JSON.stringify(cityName));
-    showHistory();
-
     // if (city) {
     getCurrentWeather(city);
+    addToHistory(city);
 
     // clear old content
     nameInputEl.value = "";
-
-  }
-  if (!city === cityName) {
-      alert("Please enter a valid City");
-
   } else {
     alert("Please enter a City");
   }
 };
+
+function addToHistory(city) {
+  cityName.push(city);
+  if (cityName.includes(city)) console.log("city entered", cityName);
+  localStorage.setItem("city", JSON.stringify(cityName));
+  showHistory();
+}
+
+// SEARCH HISTORY RESULTS START
+var showHistory = function () {
+  priorSearchHistoryEl.replaceChildren();
+  for (var i = 0; i < cityName.length; i++) {
+    console.log(cityName[i]);
+    console.log(i);
+
+    var priorCity = cityName[i];
+
+    var btn = document.createElement("button");
+    btn.textContent = priorCity;
+    btn.setAttribute("class", "btn-history");
+    btn.setAttribute("value", cityName[i]);
+    priorSearchHistoryEl.appendChild(btn);
+  }
+};
+priorSearchHistoryEl.addEventListener("click", handleSearchHistory);
+showHistory();
+
+function handleSearchHistory(event) {
+  if (!event.target.matches(".btn-history")) {
+    return;
+  }
+
+  var btn = event.target;
+  var search = btn.getAttribute("value");
+  getCurrentWeather(search);
+}
 
 var getCurrentWeather = function (city) {
   var apiUrl =
@@ -62,6 +81,8 @@ var getCurrentWeather = function (city) {
     // request was successful
     if (response.ok) {
       response.json().then(function (data) {
+        weatherData.innerHTML = "";
+        currentWeather.innerHTML = "";
         console.log("data from api", data);
         //  displayCity(data, city);
 
@@ -109,6 +130,7 @@ function getFiveDay({ lat, lon }) {
   fetch(fiveDayUrl)
     .then((response) => response.json())
     .then((data) => {
+      fiveDayWeather.innerHTML = "";
       console.log("fiveDay data", data);
 
       let uvIndex = document.createElement("p");
@@ -176,27 +198,6 @@ var clearSearch = function (event) {
   console.log(event);
 };
 // CLEAR BUTTON END
-
-// var cityNameList = [cityName];
-// console.log(cityName.length);
-
-// SEARCH HISTORY RESULTS START
-var showHistory = function () {
-  priorSearchHistoryEl.replaceChildren();
-  for (var i = 0; i < cityName.length; i++) {
-    console.log(cityName[i]);
-    console.log(i);
-
-    var priorCity = cityName[i];
-
-    var getHistory = document.createElement("button");
-    getHistory.textContent = priorCity;
-    // enter: getHistory.addEventLister - here to search for the city in the prior search button
-    priorSearchHistoryEl.appendChild(getHistory);
-  }
-};
-showHistory();
-// SEARCH HISTORY RESULTS END
 
 // start event listeners
 userFormEl.addEventListener("submit", formSubmitHandler);
