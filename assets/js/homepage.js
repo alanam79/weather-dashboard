@@ -36,7 +36,7 @@ var formSubmitHandler = function (event) {
 
 function addToHistory(city) {
   cityName.push(city);
-  if (!cityName.includes(city)) console.log("city entered", cityName);
+  if (cityName.includes(city)) console.log("city entered", cityName);
   localStorage.setItem("city", JSON.stringify(cityName));
   showHistory();
 }
